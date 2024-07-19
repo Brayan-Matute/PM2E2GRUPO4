@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E2GRUPO4.AudioListPage"
+             Title="AudioListPage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#333"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#2196F3"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="0,10"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5,5"/>
+            <Setter Property="BackgroundColor" Value="#f9f9f9"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout
+        Spacing="15"
+        Padding="20"
+        VerticalOptions="FillAndExpand">
+
+        <CollectionView
+            x:Name="AudioCollectionView"
+            ItemsSource="{Binding Audios}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    BackgroundColor="Green"
+                                    Invoked="OnPlaySwipeItemInvoked" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    BackgroundColor="Red"
+                         
+                                    CommandParameter="{Binding .}"
+                                    Invoked="OnDeleteSwipeItemInvoked" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Frame>
+                            <StackLayout>
+                                <Label Text="{Binding Descripcion}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Fecha}" FontSize="14" TextColor="Gray"/>
+                            </StackLayout>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            Text="Actualizar Lista de Audios"
+            Clicked="OnRefreshAudioListClicked"
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
