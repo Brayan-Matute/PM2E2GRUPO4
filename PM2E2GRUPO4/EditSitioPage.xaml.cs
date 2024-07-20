@@ -133,6 +133,7 @@ namespace PM2E2GRUPO4
                         latitud = _sitio.latitud,
                         longitud = _sitio.longitud,
                         fotografia = _sitio.fotografia,
+                        audioFile = _sitio.audiofile,
                     });
 
                     var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
