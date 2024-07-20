@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E2GRUPO4.EditSitioPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Frame BorderColor="Gold" HeightRequest="120" WidthRequest="120" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image x:Name="imagen" Source="smiley.png" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100" BackgroundColor="White" Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label Text="Longitud" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+            <Entry
+                x:Name="LongitudeEntry"
+                HorizontalOptions="Center"
+                WidthRequest="300" />
+
+            <Label Text="Latitud" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+            <Entry
+                x:Name="LatitudeEntry"
+                HorizontalOptions="Center"
+                WidthRequest="300" />
+
+            <Label Text="Descripción" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+            <Entry
+                x:Name="DescriptionEntry"
+                HorizontalOptions="Center"
+                WidthRequest="300" />
+
+            <Button
+                x:Name="SaveButton"
+                Text="Guardar Cambios"
+                FontSize="18"
+                BackgroundColor="Green"
+                Clicked="OnSaveButtonClicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                Text="Cancelar"
+                Clicked="OnCancelButtonClicked"
+                FontSize="18"
+                BackgroundColor="Red"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

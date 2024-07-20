@@ -58,8 +58,7 @@ namespace PM2E2GRUPO4
                 _selectedSitio.IsSelected = true;
             }
 
-            // Update the UI to reflect the selection
-            SitiosCollectionView.ItemsSource = SitiosCollectionView.ItemsSource; // Refresh CollectionView
+            SitiosCollectionView.ItemsSource = SitiosCollectionView.ItemsSource;
         }
 
         private async void OnPlayAudioClicked(object sender, EventArgs e)
@@ -71,14 +70,11 @@ namespace PM2E2GRUPO4
             {
                 try
                 {
-                    // Verifica si el archivo de audio es válido
                     if (string.IsNullOrEmpty(sitio.audiofile))
                     {
                         await DisplayAlert("Error", "El archivo de audio está vacío o no está disponible.", "OK");
                         return;
                     }
-
-                    // Decodifica el audio desde Base64
                     byte[] audioData;
                     try
                     {
@@ -89,8 +85,6 @@ namespace PM2E2GRUPO4
                         await DisplayAlert("Error", "El archivo de audio no está en un formato Base64 válido.", "OK");
                         return;
                     }
-
-                    // Reproduce el audio
                     using var audioStream = new MemoryStream(audioData);
                     _audioPlayer = AudioManager.Current.CreatePlayer(audioStream);
                     _audioPlayer.Play();
@@ -127,9 +121,8 @@ namespace PM2E2GRUPO4
 
             if (sitio != null)
             {
-                // Aquí puedes implementar la lógica para actualizar el sitio.
-                // Por ejemplo, abrir una nueva página para editar los detalles del sitio.
-                await DisplayAlert("Actualizar", $"Actualizar sitio: {sitio.descripcion}", "OK");
+
+                await Navigation.PushAsync(new EditSitioPage(sitio));
             }
         }
 
@@ -153,7 +146,7 @@ namespace PM2E2GRUPO4
                             if (response.IsSuccessStatusCode)
                             {
                                 await DisplayAlert("Éxito", "Sitio eliminado correctamente.", "OK");
-                                LoadSitiosAsync(); 
+                                LoadSitiosAsync();
                             }
                             else
                             {
@@ -176,7 +169,7 @@ namespace PM2E2GRUPO4
 
             if (sitio != null)
             {
-                
+
                 await Navigation.PushAsync(new PageMap(
                     Convert.ToDouble(sitio.latitud),
                     Convert.ToDouble(sitio.longitud),
@@ -195,28 +188,28 @@ namespace PM2E2GRUPO4
         public string latitud { get; set; }
         public string fotografia { get; set; }
         public bool IsSelected { get; set; }
-    
 
-    public ImageSource ImageSource
-    {
-        get
+
+        public ImageSource ImageSource
         {
-            try
+            get
             {
-                if (string.IsNullOrEmpty(fotografia))
+                try
                 {
+                    if (string.IsNullOrEmpty(fotografia))
+                    {
+                        return null;
+                    }
+                    byte[] imageBytes = Convert.FromBase64String(fotografia);
+                    return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al convertir Base64 string a Imagen: {ex.Message}");
                     return null;
                 }
-                byte[] imageBytes = Convert.FromBase64String(fotografia);
-                return ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al convertir Base64 string a Imagen: {ex.Message}");
-                return null;
             }
         }
     }
-}
 }
 
