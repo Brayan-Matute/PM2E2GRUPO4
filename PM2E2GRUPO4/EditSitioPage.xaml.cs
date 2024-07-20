@@ -116,14 +116,29 @@ namespace PM2E2GRUPO4
             _sitio.latitud = LatitudeEntry.Text;
             _sitio.descripcion = DescriptionEntry.Text;
 
+            if (string.IsNullOrEmpty(_sitio.fotografia))
+            {
+                await DisplayAlert("Error", "La imagen no se ha cargado correctamente.", "OK");
+                return;
+            }
+
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(_sitio);
-                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        id = _sitio.Id, 
+                        descripcion = _sitio.descripcion,
+                        latitud = _sitio.latitud,
+                        longitud = _sitio.longitud,
+                        fotografia = _sitio.fotografia,
+                    });
 
-                    var response = await client.PostAsync(Config.Config.EndPointUpdate, content);
+                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    var url = $"{Config.Config.EndPointUpdate}/{_sitio.Id}"; 
+
+                    var response = await client.PutAsync(url, content); 
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -132,7 +147,8 @@ namespace PM2E2GRUPO4
                     }
                     else
                     {
-                        await DisplayAlert("Error", "Error al actualizar el sitio.", "OK");
+                        var errorContent = await response.Content.ReadAsStringAsync();
+                        await DisplayAlert("Error", $"Error al actualizar el sitio: {response.ReasonPhrase}\n{errorContent}", "OK");
                     }
                 }
             }
@@ -141,6 +157,7 @@ namespace PM2E2GRUPO4
                 await DisplayAlert("Error", $"Error al actualizar el sitio: {ex.Message}", "OK");
             }
         }
+
 
         private async void OnCancelButtonClicked(object sender, EventArgs e)
         {

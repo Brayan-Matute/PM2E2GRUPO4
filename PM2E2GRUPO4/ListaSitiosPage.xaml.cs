@@ -21,6 +21,10 @@ namespace PM2E2GRUPO4
         public ListaSitiosPage()
         {
             InitializeComponent();
+            MessagingCenter.Subscribe<EditSitioPage, Sitio>(this, "SitioActualizado", (sender, updatedSitio) =>
+            {
+                LoadSitiosAsync();
+            });
             LoadSitiosAsync();
         }
 
