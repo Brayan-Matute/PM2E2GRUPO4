@@ -82,8 +82,8 @@
                 HorizontalOptions="Center" />
 
             <Button
-                Text="Lista de Audios"
-                Clicked="OnViewAudioListClicked"
+                Text="Lista de Sitios"
+                Clicked="OnViewListasitiosClicked"
                 FontSize="18"
                 Background="Green"
                 HorizontalOptions="Center" />

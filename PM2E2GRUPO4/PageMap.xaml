@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="PM2E2GRUPO4.PageMap">
+
+    <ContentPage.Content>
+        <Grid>
+            <maps:Map x:Name="map"
+              IsShowingUser="true"
+              VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand" />
+
+
+
+            <Button Text="Compartir" Clicked="ShareButton_Clicked"
+            VerticalOptions="End" HorizontalOptions="Start" />
+            <Button Text="Iniciar" Clicked="NavigateButton_Clicked"
+            VerticalOptions="End" HorizontalOptions="Center" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E2GRUPO4.ListaSitiosPage"
+             Title="Lista de Sitios">
+
+    <ScrollView Padding="10">
+        <StackLayout>
+            <CollectionView x:Name="SitiosCollectionView"
+                            SelectionMode="Single"
+                            SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        Text="Actualizar"
+                                        BackgroundColor="LightBlue"
+                                        Clicked="OnUpdateClicked"
+                                        CommandParameter="{Binding .}" />
+                                    <SwipeItem
+                                        Text="Eliminar"
+                                        BackgroundColor="Red"
+                                        Clicked="OnDeleteClicked"
+                                        CommandParameter="{Binding .}" />
+                                    <SwipeItem
+                                        Text="Mapa"
+                                        BackgroundColor="Green"
+                                        Clicked="OnMapaClicked"
+                                        CommandParameter="{Binding .}" /> 
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="5" Padding="5" BorderColor="LightGray" CornerRadius="10">
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="LightBlue"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill"/>
+                                    <StackLayout Spacing="5" VerticalOptions="Center">
+                                        <Label Text="{Binding descripcion}" FontSize="Medium" TextColor="Gray"/>
+                                        <Label Text="{Binding longitud}" FontSize="Small" TextColor="Gray"/>
+                                        <Label Text="{Binding latitud}" FontSize="Small" TextColor="Gray"/>
+                                        <Button Text="Reproducir Audio" BackgroundColor="Green"
+                                            Clicked="OnPlayAudioClicked"
+                                            CommandParameter="{Binding .}"/>
+                                        <Button Text="Detener Audio" BackgroundColor="Red"
+                                            Clicked="OnStopAudioClicked"
+                                            CommandParameter="{Binding .}"/> 
+                                    </StackLayout>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnItemTapped" NumberOfTapsRequired="2"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
+
